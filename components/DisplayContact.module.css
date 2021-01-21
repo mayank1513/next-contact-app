@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.avatar {
+    height: 15em;
+}
+
+.btns button {
+    margin-left: 20px;
+    margin-top: 20px;
+    padding: 10px;
+    text-transform: uppercase;
+    font-size: inherit;
+    border: 2px solid blue;
+    background: white;
+    border-radius: 10px;
+    outline: 0;
+}
+
+.btns button:hover {
+    cursor: pointer;
+    background: blue;
+    color: white;
+    font-weight: bold;
+}
