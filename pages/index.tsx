@@ -1,31 +1,16 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
 import ContactList from "../components/ContactList.tsx";
+import ErrorBoundary from "../components/ErrorBoundary.tsx";
 import styles from "../styles/Home.module.css";
+import { getContacts } from "../util/contacts";
 
 export default function Home() {
-  let contacts = [
-    {
-      id: 0,
-      name: "Mayank Chaudhari",
-      email: "mayank.srmu@gmail.com",
-      phone: "+91 8127987043",
-      favorite: false,
-    },
-    {
-      id: 1,
-      name: "Sangwon Park",
-      email: "abc@favoritemedium.com",
-      favorite: true,
-    },
-    {
-      id: 2,
-      name: "Slava Olenin",
-      email: "xyz@favoritemedium.com",
-      favorite: true,
-    },
-  ];
+  const [contacts, setContact] = useState([]);
+  useEffect(() => {
+    getContacts().then((c: any) => setContact(c));
+  }, []);
   let onChangeLike = (id) => {};
-  let onItemClick = (id) => {};
   return (
     <div>
       <Head>
@@ -33,12 +18,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <ContactList
-          contacts={contacts}
-          onChangeLike={onChangeLike}
-          onItemClick={onItemClick}
-        />
+      <main className="main">
+        <ErrorBoundary>
+          <ContactList contacts={contacts} onChangeLike={onChangeLike} />
+        </ErrorBoundary>
       </main>
     </div>
   );
