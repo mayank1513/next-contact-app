@@ -25,7 +25,7 @@ export const createContact = (body) => {
 };
 
 export const updateContact = (contact) => {
-  const c = getCtx().map((ct) => (ct.id == contact.id ? contact : ct));
+  const c = getCtx().map((it) => (it.id == contact.id ? contact : it));
   localStorage.contacts = JSON.stringify(c);
   return new Promise((resolve, reject) => resolve(true));
 };

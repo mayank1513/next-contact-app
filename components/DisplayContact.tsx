@@ -1,6 +1,7 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { getContact, removeContact } from "../util/contacts";
+import { getContact, removeContact, updateContact } from "../util/contacts";
 import styles from "./DisplayContact.module.css";
 
 export default function DisplayContact({ id }) {
@@ -10,6 +11,7 @@ export default function DisplayContact({ id }) {
       .then((it) => setContact(it))
       .catch((err) => console.error(err));
   }, [id]);
+  const router = useRouter();
   return (
     <div>
       <header>
@@ -19,21 +21,37 @@ export default function DisplayContact({ id }) {
           </a>
         </Link>
         <span className="spacer"></span>
-        <img src={"/heart-off.svg"} className={"logo "} />
+        <img
+          onClick={() => {
+            const newContact = { ...contact, favorite: !contact.favorite };
+            updateContact(newContact).then(() => {
+              setContact(newContact);
+            });
+          }}
+          src={contact && contact.favorite ? "/heart.svg" : "/heart-off.svg"}
+          className={"logo " + styles.like}
+        />
       </header>
       {contact && (
         <div className={styles.container}>
           <img src="/person.svg" className={styles.avatar} />
           <h1>{contact.name}</h1>
-          <p>{contact.email}</p>
-          {contact.phone && <p>contact.phone</p>}
+          <p>
+            <a href={"mailto:" + contact.email}>{contact.email}</a>
+          </p>
+          {contact.phone && <p>{contact.phone}</p>}
           <div className={styles.btns}>
             <Link href={`/contacts/${contact.id}/update`}>
               <a>
                 <button>Edit Contact</button>
               </a>
             </Link>
-            <button onClick={() => removeContact(contact.id)}>
+            <button
+              onClick={() => {
+                removeContact(contact.id);
+                router.push("/");
+              }}
+            >
               Remove Contact
             </button>
           </div>
