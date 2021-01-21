@@ -1,13 +1,16 @@
 import Head from "next/head";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState, useReducer, useRef } from "react";
-import ContactList from "../components/ContactList.tsx";
+import ContactListItem from "../components/ContactListItem.tsx";
 import ErrorBoundary from "../components/ErrorBoundary.tsx";
 import styles from "../styles/Home.module.css";
 import { getContacts } from "../util/contacts";
 import { updateContact } from "../util/contacts";
 
 export default function Home() {
+  const [animClass, setAnimClass] = useState("");
+  const router = useRouter();
+
   const actionContactsChange = "contacts";
   const actionSearchChange = "search";
   const actionFavOnlyChange = "fav";
@@ -49,6 +52,7 @@ export default function Home() {
   useEffect(() => {
     getContacts().then((c: any) => {
       dispatch({ type: actionContactsChange, value: c });
+      setAnimClass(styles.animClass);
     });
   }, []);
   let onChangeLike = (contact) => {
@@ -58,7 +62,7 @@ export default function Home() {
     });
   };
   return (
-    <div>
+    <div className={styles.container + " " + animClass}>
       <Head>
         <title>Contacts App | Favorite Medium</title>
         <link rel="icon" href="/favicon.ico" />
@@ -94,19 +98,32 @@ export default function Home() {
               (searchState.favOnly ? styles.favOnly : "")
             }
           >
+            <small>Showing </small>
             {searchState.favOnly ? "Only Favorite" : "All"}
           </span>
         </label>
-        <Link href="/create">
-          <img src="/person-add.svg" className="logo" />
-        </Link>
+        <img
+          onClick={() => {
+            setAnimClass("");
+            setTimeout(() => router.push("/create"), 250);
+          }}
+          src="/person-add.svg"
+          className="logo"
+        />
       </header>
       <main className="main">
         <ErrorBoundary>
-          <ContactList
-            contacts={searchState.filteredContacts}
-            onChangeLike={onChangeLike}
-          />
+          {searchState.filteredContacts.map((contact) => (
+            <ContactListItem
+              key={contact.id}
+              contact={contact}
+              onChangeLike={onChangeLike}
+              onItemClick={() => {
+                setAnimClass("");
+                setTimeout(() => router.push(`/contacts/${contact.id}`), 250);
+              }}
+            />
+          ))}
         </ErrorBoundary>
       </main>
     </div>

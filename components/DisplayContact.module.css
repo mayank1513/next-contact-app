@@ -2,10 +2,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transform: scale(0.8, .8) translateY(200%);
+    opacity: 0.2;
+    transition: all .25s;
 }
 
 .avatar {
     height: 15em;
+    transform: scale(0.8, .8) translateY(200%);
+    opacity: 0.2;
+}
+
+.btns {
+    margin-bottom: 20px;
 }
 
 .btns button {
@@ -18,6 +27,12 @@
     background: white;
     border-radius: 10px;
     outline: 0;
+    transform: scale(0.8, .8) translateY(200%);
+    opacity: 0.2;
+}
+
+.btns button:last-child {
+    transition: all .75s;
 }
 
 .btns button:hover {
@@ -30,4 +45,10 @@
 .like:hover {
     cursor: pointer;
     filter: drop-shadow(2px 2px 2px red);
+}
+
+.animClass,
+.animClass button {
+    transform: scale(1, 1) translateX(0);
+    opacity: 1;
 }

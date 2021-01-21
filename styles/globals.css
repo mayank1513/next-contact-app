@@ -27,6 +27,7 @@ button:active {
 
 .main {
     min-height: 90vh;
+    overflow: hidden;
 }
 
 .container {

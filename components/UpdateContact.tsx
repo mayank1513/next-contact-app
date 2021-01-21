@@ -15,11 +15,15 @@ class UpdateContact extends Component {
       phone: "",
       phoneDirty: false,
       favorite: false,
+      animClass: "",
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
+    setTimeout(() => {
+      this.setState({ animClass: styles.animClass });
+    }, 50);
     if (this.props.contact) this.setState({ ...this.props.contact });
   }
   handleInputChange(event) {
@@ -38,6 +42,7 @@ class UpdateContact extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.setState({ animClass: "" });
     const { name, email, phone, favorite } = this.state;
     if (this.props.contact) {
       updateContact({
@@ -53,23 +58,28 @@ class UpdateContact extends Component {
         email,
         phone,
         favorite,
-      }).then(() => Router.push("/"));
+      }).then(() => setTimeout(() => Router.push("/"), 500));
     }
   }
 
   render() {
     return (
-      <div>
+      <div className={[styles.container, this.state.animClass].join(" ")}>
         <header>
-          <Link
-            href={
-              this.props.contact ? `/contacts/${this.props.contact.id}` : "/"
-            }
-          >
-            <a>
-              <img src="/arrow-back.svg" className="logo" />
-            </a>
-          </Link>
+          <img
+            onClick={() => {
+              this.setState({ animClass: "" });
+              setTimeout(() => {
+                Router.push(
+                  this.props.contact
+                    ? `/contacts/${this.props.contact.id}`
+                    : "/"
+                );
+              }, 300);
+            }}
+            src="/arrow-back.svg"
+            className="logo"
+          />
           <span className="spacer"></span>
           <img
             onClick={() => this.setState({ favorite: !this.state.favorite })}

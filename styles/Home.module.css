@@ -1,3 +1,14 @@
+.container {
+    transform: scale(0.8, .8) translateX(-200%);
+    opacity: 0.2;
+    transition: all .3s;
+}
+
+.animClass {
+    transform: scale(1, 1) translateX(0);
+    opacity: 1;
+}
+
 .searchBox {
     position: relative;
     flex-grow: 1;
