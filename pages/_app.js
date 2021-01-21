@@ -2,7 +2,7 @@ import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
   return (
-    <div>
+    <div className={"container"}>
       <Component {...pageProps} />
       <footer className="footer">
         <a

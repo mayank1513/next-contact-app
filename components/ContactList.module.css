@@ -1,0 +1,45 @@
+.listItem {
+    background: white;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    border-bottom: 1px solid #eee5;
+}
+
+.listItem:hover {
+    background: #aaaa;
+}
+
+.contactDetails {
+    flex-grow: 1;
+}
+
+.contactDetails * {
+    margin: 0.1em;
+}
+
+.onHover {
+    display: none;
+}
+
+.listItem:hover .onHover {
+    display: inline;
+}
+
+.like {
+    height: 1.6em;
+    margin: 1em;
+}
+
+@media (hover: none) {
+    .listItem .btn {
+        background: #aaaa;
+        border-radius: 50%;
+    }
+}
+
+@media (max-width:600px) {
+    .btn {
+        display: none;
+    }
+}

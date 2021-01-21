@@ -12,6 +12,12 @@ a {
 
 * {
     box-sizing: border-box;
+    transition: all .5s;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
 }
 
 .footer {
@@ -31,4 +37,9 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.logo {
+    height: 2em;
+    margin: 1em;
 }
