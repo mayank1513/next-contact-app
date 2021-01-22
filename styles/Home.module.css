@@ -51,8 +51,12 @@
     background: linear-gradient(to top right, blueviolet, #00f5);
 }
 
-@media (max-width:500px) {
+.searchBoxOverlay small {
+    display: none;
+}
+
+@media (min-width:500px) {
     .searchBoxOverlay small {
-        display: none;
+        display: inline;
     }
 }
