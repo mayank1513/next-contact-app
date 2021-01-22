@@ -99,7 +99,9 @@ export default function Home() {
             }
           >
             {searchState.favOnly ? (
-              <span>Only &#10084;</span>
+              <span>
+                <small>Showing Only</small> &#10084;
+              </span>
             ) : (
               <span>
                 <small>Showing </small>All
