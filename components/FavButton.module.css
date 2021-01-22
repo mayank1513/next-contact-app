@@ -8,3 +8,21 @@
     cursor: pointer;
     filter: drop-shadow(2px 2px 2px red);
 }
+
+.anim {
+    animation: like 1s;
+}
+
+@keyframes like {
+    0% {
+        transform: scale(1, 1) rotateY(0) translateY(0);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(.4, .4) rotateY(-180deg) translateY(-50%);
+    }
+    100% {
+        transform: scale(1, 1) rotateY(360deg) translateY(0);
+        opacity: 1;
+    }
+}
