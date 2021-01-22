@@ -1,5 +1,19 @@
 const getCtx = () => {
-  return JSON.parse(localStorage.contacts || "[]");
+  if (localStorage.contacts) return JSON.parse(localStorage.contacts);
+  return [
+    {
+      name: "Sangwon PARK",
+      email: "abcxyz@favoritemedium.com",
+    },
+    {
+      name: "Slava Olenin",
+      email: "xyzabc@favoritemedium.com",
+    },
+    {
+      name: "Mayank Chaudhari",
+      email: "mayank.srmu@gmail.com",
+    },
+  ];
 };
 
 export const getContacts = () =>
