@@ -98,8 +98,13 @@ export default function Home() {
               (searchState.favOnly ? styles.favOnly : "")
             }
           >
-            <small>Showing </small>
-            {searchState.favOnly ? "Only Favorite" : "All"}
+            {searchState.favOnly ? (
+              <span>Only &#10084;</span>
+            ) : (
+              <span>
+                <small>Showing </small>All
+              </span>
+            )}
           </span>
         </label>
         <img
