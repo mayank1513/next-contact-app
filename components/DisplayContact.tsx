@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getContact, removeContact, updateContact } from "../util/contacts";
 import styles from "./DisplayContact.module.css";
+import FavButton from "./FavButton";
 
 export default function DisplayContact({ id }) {
   const [animClass, setAnimClass] = useState("");
@@ -27,15 +28,14 @@ export default function DisplayContact({ id }) {
           className="logo"
         />
         <span className="spacer"></span>
-        <img
+        <FavButton
+          fav={contact && contact.favorite}
           onClick={() => {
             const newContact = { ...contact, favorite: !contact.favorite };
             updateContact(newContact).then(() => {
               setContact(newContact);
             });
           }}
-          src={contact && contact.favorite ? "/heart.svg" : "/heart-off.svg"}
-          className={"logo " + styles.like}
         />
       </header>
       {contact && (

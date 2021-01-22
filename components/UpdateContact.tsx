@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Component } from "react";
 import { createContact, updateContact } from "../util/contacts";
 import styles from "./UpdateContact.module.css";
+import FavButton from "./FavButton";
 
 class UpdateContact extends Component {
   constructor(props) {
@@ -81,10 +82,9 @@ class UpdateContact extends Component {
             className="logo"
           />
           <span className="spacer"></span>
-          <img
+          <FavButton
+            fav={this.state.favorite}
             onClick={() => this.setState({ favorite: !this.state.favorite })}
-            src={this.state.favorite ? "/heart.svg" : "/heart-off.svg"}
-            className={"logo " + styles.like}
           />
         </header>
         <form className={styles.form} onSubmit={this.handleSubmit}>

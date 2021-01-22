@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 import styles from "./ContactList.module.css";
+import FavButton from "./FavButton";
 
 export default function ContactListItem({
   contact,
@@ -34,13 +35,12 @@ export default function ContactListItem({
         <p>{contact.name}</p>
         <small className={styles.onHover}>{contact.email}</small>
       </div>
-      <img
+      <FavButton
+        fav={contact.favorite}
         onClick={(e) => {
           onChangeLike(contact);
           e.stopPropagation();
         }}
-        src={contact.favorite ? "/heart.svg" : "/heart-off.svg"}
-        className={styles.like}
       />
       {/* <img src="/cancel.svg" className={"logo" + " " + styles.btn} /> */}
     </div>
