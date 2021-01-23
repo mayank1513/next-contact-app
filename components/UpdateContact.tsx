@@ -1,11 +1,26 @@
 import Router from "next/router";
-import Link from "next/link";
+// import Link from "next/link"; -- put to improve preloading
 import { Component } from "react";
 import { createContact, updateContact } from "../util/contacts";
 import styles from "./UpdateContact.module.css";
 import FavButton from "./FavButton";
+import { ContactInterface } from "../util/custom-types";
 
-class UpdateContact extends Component {
+interface CPropTypes {
+  contact?: ContactInterface;
+}
+
+interface StateTypes {
+  name?: string;
+  nameDirty?: boolean;
+  email?: string;
+  emailDirty?: boolean;
+  phone?: string;
+  phoneDirty?: boolean;
+  favorite?: boolean;
+  animClass?: string;
+}
+class UpdateContact extends Component<CPropTypes, StateTypes> {
   constructor(props) {
     super(props);
     this.state = {
@@ -119,7 +134,7 @@ class UpdateContact extends Component {
               name="phone"
               type="tel"
               placeholder="Phone"
-              value={this.state.Phone}
+              value={this.state.phone}
               onChange={this.handleInputChange}
             />
           </label>

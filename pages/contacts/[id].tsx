@@ -7,7 +7,7 @@ export default () => {
   const { id } = router.query;
   return (
     <main className="main">
-      <DisplayContact id={id} />
+      <DisplayContact id={+id} />
     </main>
   );
 };

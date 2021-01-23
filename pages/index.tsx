@@ -1,23 +1,36 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect, useState, useReducer, useRef } from "react";
-import ContactListItem from "../components/ContactListItem.tsx";
-import ErrorBoundary from "../components/ErrorBoundary.tsx";
+import { useEffect, useState, useReducer, useRef, RefObject } from "react";
+import ContactListItem from "../components/ContactListItem";
+import ErrorBoundary from "../components/ErrorBoundary";
 import styles from "../styles/Home.module.css";
 import { getContacts } from "../util/contacts";
 import { updateContact } from "../util/contacts";
+import { ContactInterface } from "../util/custom-types";
 
+interface ReducerInterface {
+  contacts: Array<ContactInterface>;
+  favOnly: boolean;
+  search: string;
+  filteredContacts: Array<ContactInterface>;
+}
+
+interface ActionInterface {
+  type: string;
+  // value: string | boolean | Array<ContactInterface>;
+  value: any;
+}
 export default function Home() {
-  const [animClass, setAnimClass] = useState("");
+  const [animClass, setAnimClass] = useState<string>("");
   const router = useRouter();
 
   const actionContactsChange = "contacts";
   const actionSearchChange = "search";
   const actionFavOnlyChange = "fav";
-  const ref = useRef();
+  const ref = useRef() as RefObject<HTMLInputElement>;
 
   const [searchState, dispatch] = useReducer(
-    (state, action) => {
+    (state: ReducerInterface, action: ActionInterface) => {
       let search = state.search;
       let favOnly = state.favOnly;
       let contacts = state.contacts;
@@ -71,7 +84,7 @@ export default function Home() {
         <img
           src="/search.svg"
           onClick={() => {
-            ref.current.focus();
+            if (ref.current) ref.current.focus();
           }}
           className="logo"
         />

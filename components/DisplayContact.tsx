@@ -1,13 +1,14 @@
-import Link from "next/link";
+import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { getContact, removeContact, updateContact } from "../util/contacts";
 import styles from "./DisplayContact.module.css";
 import FavButton from "./FavButton";
+import { ContactInterface } from "../util/custom-types";
 
-export default function DisplayContact({ id }) {
+function DisplayContact({ id }) {
   const [animClass, setAnimClass] = useState("");
-  const [contact, setContact] = useState();
+  const [contact, setContact] = useState<ContactInterface>();
   useEffect(() => {
     getContact(id)
       .then((it) => setContact(it))
@@ -75,3 +76,8 @@ export default function DisplayContact({ id }) {
     </div>
   );
 }
+
+DisplayContact.PropTypes = {
+  id: PropTypes.number,
+};
+export default DisplayContact;

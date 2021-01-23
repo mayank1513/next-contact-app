@@ -1,15 +1,13 @@
+import PropTypes from "prop-types";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, RefObject } from "react";
+import { TypeContact } from "../util/custom-types";
 import styles from "./ContactList.module.css";
 import FavButton from "./FavButton";
 
-export default function ContactListItem({
-  contact,
-  onChangeLike,
-  onItemClick,
-}) {
+function ContactListItem({ contact, onChangeLike, onItemClick }) {
   const router = useRouter();
-  const ref = useRef();
+  const ref = useRef() as RefObject<HTMLDivElement>;
   const [animClass, setAnimClass] = useState("");
 
   const foo = () => {
@@ -46,3 +44,10 @@ export default function ContactListItem({
     </div>
   );
 }
+
+ContactListItem.PropTypes = {
+  contact: PropTypes.shape(TypeContact),
+  onChangeLike: PropTypes.string,
+  onItemClick: PropTypes.func,
+};
+export default ContactListItem;
