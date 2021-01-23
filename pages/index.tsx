@@ -46,10 +46,9 @@ export default function Home() {
       }
       const filteredContacts = contacts.filter((it) => {
         return (
-          (!favOnly || it.favorite) &&
-          (it.name.includes(search) ||
-            it.email.includes(search) ||
-            it.phone.includes(search))
+          (!favOnly || it.favorite) && it.name.includes(search) //||
+          // it.email.includes(search) ||
+          // it.phone.includes(search))
         );
       });
       return { contacts, favOnly, search, filteredContacts };
