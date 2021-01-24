@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styles from "./LabeledInput.module.css";
+import PropTypes from "prop-types";
 
 function LabeledInput({
   type,
@@ -42,4 +43,14 @@ function LabeledInput({
   );
 }
 
+LabeledInput.PropTypes = {
+  type: PropTypes.oneOf(["text", "email", "tel"]),
+  name: PropTypes.string,
+  value: PropTypes.string,
+  label: PropTypes.string,
+  errMessage: PropTypes.string,
+  validator: PropTypes.func,
+  formator: PropTypes.func,
+  onChange: PropTypes.func,
+};
 export default LabeledInput;
