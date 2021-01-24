@@ -5,6 +5,7 @@ import { createContact, updateContact } from "../util/contacts";
 import styles from "./UpdateContact.module.css";
 import FavButton from "./FavButton";
 import { ContactInterface } from "../util/custom-types";
+import LabeledInput from "./LabeledInput";
 
 interface CPropTypes {
   contact?: ContactInterface;
@@ -33,6 +34,7 @@ class UpdateContact extends Component<CPropTypes, StateTypes> {
       favorite: false,
       animClass: "",
     };
+    this.onChange = this.onChange.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -41,6 +43,11 @@ class UpdateContact extends Component<CPropTypes, StateTypes> {
       this.setState({ animClass: styles.animClass });
     }, 50);
     if (this.props.contact) this.setState({ ...this.props.contact });
+  }
+  onChange(name: string, value: string) {
+    this.setState({
+      [name]: value,
+    });
   }
   handleInputChange(event) {
     const target = event.target;
@@ -103,41 +110,60 @@ class UpdateContact extends Component<CPropTypes, StateTypes> {
           />
         </header>
         <form className={styles.form} onSubmit={this.handleSubmit}>
-          <label>
-            {this.state.nameDirty && this.state.name.length < 3 && (
-              <small className={styles.err}>
-                *Name must be at least 3 characters long
-              </small>
-            )}
-            <input
-              name="name"
-              type="text"
-              value={this.state.name}
-              placeholder="Name"
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label>
-            {this.state.emailDirty && !this.validateEmail() && (
-              <small className={styles.err}>*Please enter valid email</small>
-            )}
-            <input
-              name="email"
-              type="email"
-              placeholder="E-mail"
-              value={this.state.email}
-              onChange={this.handleInputChange}
-            />
-          </label>
-          <label>
-            <input
-              name="phone"
-              type="tel"
-              placeholder="Phone"
-              value={this.state.phone}
-              onChange={this.handleInputChange}
-            />
-          </label>
+          <LabeledInput
+            type="text"
+            name="name"
+            value={this.state.name}
+            label="Name"
+            errMessage="* Name must be at least 3 characters long"
+            validator={() => this.state.name.length > 2}
+            formator={(v: string): string => {
+              if (v.startsWith(" ")) v = v.substr(1);
+              v = v.replace(/[^a-zA-Z\s]/g, "");
+              v = v.substr(0, 30);
+              // v =
+              //   v[0].replace(/[^0-9()+\s]/g, "") +
+              //   v.substr(1).replace(/[^0-9()\s]/g, "");
+              return v;
+            }}
+            onChange={this.onChange}
+          />
+          <LabeledInput
+            type="email"
+            name="email"
+            value={this.state.email}
+            label="Email"
+            errMessage="* Please enter valid email"
+            validator={this.validateEmail}
+            formator={(v: string): string => {
+              if (v.startsWith(" ")) v = v.substr(1);
+              v = v.replace(/[^a-zA-Z\s]/g, "");
+              v = v.substr(0, 30);
+              // v =
+              //   v[0].replace(/[^0-9()+\s]/g, "") +
+              //   v.substr(1).replace(/[^0-9()\s]/g, "");
+              return v;
+            }}
+            onChange={this.onChange}
+          />
+          <LabeledInput
+            type="tel"
+            name="phone"
+            value={this.state.phone}
+            label="Phone"
+            errMessage="* Please enter valid email"
+            validator={() => true}
+            formator={(v: string): string => {
+              if (v.startsWith(" ")) v = v.substr(1);
+              v = v.length
+                ? v[0].replace(/[^0-9()+\s]/g, "") +
+                  v.substr(1).replace(/[^0-9()\s]/g, "")
+                : "";
+              v = v.substr(0, 20);
+              return v;
+            }}
+            onChange={this.onChange}
+          />
           <button
             disabled={this.state.name.length < 3 || !this.validateEmail()}
           >
