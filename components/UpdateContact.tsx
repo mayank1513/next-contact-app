@@ -136,8 +136,9 @@ class UpdateContact extends Component<CPropTypes, StateTypes> {
             errMessage="* Please enter valid email"
             validator={this.validateEmail}
             formator={(v: string): string => {
-              if (v.startsWith(" ")) v = v.substr(1);
-              v = v.replace(/[^a-zA-Z\s]/g, "");
+              // if (v.startsWith(" ")) v = v.substr(1);
+              // v = v.replace(/[^a-zA-Z\s]/g, "");
+              v = v.replace(/\s/, "");
               v = v.substr(0, 30);
               // v =
               //   v[0].replace(/[^0-9()+\s]/g, "") +
