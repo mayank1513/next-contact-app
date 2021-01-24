@@ -35,7 +35,7 @@ class UpdateContact extends Component<CPropTypes, StateTypes> {
       animClass: "",
     };
     this.onChange = this.onChange.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.validateEmail = this.validateEmail.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
@@ -47,15 +47,6 @@ class UpdateContact extends Component<CPropTypes, StateTypes> {
   onChange(name: string, value: string) {
     this.setState({
       [name]: value,
-    });
-  }
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-    this.setState({
-      [name]: value,
-      [name + "Dirty"]: true,
     });
   }
   validateEmail() {
