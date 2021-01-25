@@ -23,8 +23,8 @@ function LabeledInput({
     let v = target.value;
     v = formator && formator(v);
     v = v.replace(/\s\s/g, " ");
-    if (err) setErr(!validator());
     onChange(name, v);
+    if (err) setErr(!validator());
   }
   return (
     <label className={styles.label}>
