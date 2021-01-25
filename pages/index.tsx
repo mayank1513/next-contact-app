@@ -62,6 +62,8 @@ export default function Home() {
   );
 
   useEffect(() => {
+    router.prefetch("/create");
+    router.prefetch("/contacts/1");
     getContacts().then((c: any) => {
       dispatch({ type: actionContactsChange, value: c });
       setAnimClass(styles.animClass);
