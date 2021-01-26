@@ -35,7 +35,6 @@ class UpdateContact extends Component<CPropTypes, StateTypes> {
       animClass: "",
     };
     this.onChange = this.onChange.bind(this);
-    this.validateEmail = this.validateEmail.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
   componentDidMount() {
@@ -49,9 +48,9 @@ class UpdateContact extends Component<CPropTypes, StateTypes> {
       [name]: value,
     });
   }
-  validateEmail() {
+  validateEmail(email) {
     const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(this.state.email).toLowerCase());
+    return re.test(String(email).toLowerCase());
   }
 
   handleSubmit(e) {
@@ -107,7 +106,7 @@ class UpdateContact extends Component<CPropTypes, StateTypes> {
             value={this.state.name}
             label="Name"
             errMessage="* Name must be at least 3 characters long"
-            validator={() => this.state.name.length > 2}
+            validator={(name) => name.length > 2}
             formator={(v: string): string => {
               if (v.startsWith(" ")) v = v.substr(1);
               v = v.replace(/[^a-zA-Z\s]/g, "");
@@ -144,7 +143,7 @@ class UpdateContact extends Component<CPropTypes, StateTypes> {
             value={this.state.phone}
             label="Phone"
             errMessage="* Please enter valid email"
-            validator={() => true}
+            validator={(v) => true}
             formator={(v: string): string => {
               if (v.startsWith(" ")) v = v.substr(1);
               v = v.length
@@ -157,7 +156,10 @@ class UpdateContact extends Component<CPropTypes, StateTypes> {
             onChange={this.onChange}
           />
           <button
-            disabled={this.state.name.length < 3 || !this.validateEmail()}
+            disabled={
+              this.state.name.length < 3 ||
+              !this.validateEmail(this.state.email)
+            }
           >
             {this.props.contact ? "Update " : "Add "}Contact
           </button>

@@ -16,14 +16,14 @@ function LabeledInput({
   const [focused, setFocused] = useState<boolean>(false);
   function handleBlur() {
     setFocused(false);
-    setErr(!validator());
+    setErr(!validator(value));
   }
   function handleChange(event) {
     const target = event.target;
     let v = target.value;
     v = formator && formator(v);
     v = v.replace(/\s\s/g, " ");
-    if (err) setErr(!validator());
+    if (err) setErr(!validator(v));
     onChange(name, v);
   }
   return (
